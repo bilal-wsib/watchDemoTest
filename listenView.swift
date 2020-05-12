@@ -14,7 +14,7 @@ struct listenView: View {
     @State var listShown: Bool//the two values input as parameters are stored in static variables
     @State var listCount: Int
     
-    @State var listOfHarms=[]
+    @State var listOfData=[]
     
     
     var body: some View {
@@ -31,16 +31,16 @@ struct listenView: View {
                 self.listShown=true
                 self.listCount=self.listCount+1
                 
-                let harmTicket = harm.init()
-                self.listOfHarms.append(harmTicket)
-                print(self.listOfHarms)
+                let watchDataTicket = watchData.init()
+                self.listOfData.append(watchDataTicket)
+                print(self.listOfData)
             }) {
                 Text("Ring If You're Hurt!").bold()
             }
             Spacer()
             
             if(listShown==true){
-                NavigationLink(destination: listView(ticketList: self.listOfHarms)){
+                NavigationLink(destination: listView(ticketList: self.listOfData)){
                     if(listCount==1){
                     Text("1 View Ring")
                     }
@@ -55,21 +55,11 @@ struct listenView: View {
     }
 }
 
-//trying to get the current time in button press
-struct harm: View {
-    
+
+struct watchData{
     var address: String = "123 King St." //getLocation()
     var currentTime: String = getDate()
     var isResponded: Bool = false
-    
-    var body: some View {
-        HStack{
-            Text(address)
-            Text(currentTime)
-            Text(isResponded.description)
-
-        }
-    }
 }
 
 func getDate()->String{
