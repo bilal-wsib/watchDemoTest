@@ -14,7 +14,7 @@ struct listenView: View {
     @State var listShown: Bool//the two values input as parameters are stored in static variables
     @State var listCount: Int
     
-    @State var listOfData=[]
+    @State var listOfData=[watchData]()
     
     
     var body: some View {
@@ -33,7 +33,7 @@ struct listenView: View {
                 
                 let watchDataTicket = watchData.init()
                 self.listOfData.append(watchDataTicket)
-                print(self.listOfData)
+                print(self.listOfData[0].currentTime)
             }) {
                 Text("Ring If You're Hurt!").bold()
             }
@@ -62,18 +62,24 @@ struct listenView: View {
 }
 
 
-struct watchData{
-    var address: String = "123 King St." //getLocation()
-    var currentTime: String = getDate()
-    var isResponded: Bool = false
+class watchData{
+    var address: String// = "123 King St." //getLocation()
+    var currentTime: String //= getDate()
+    var isResponded: Bool //= false
+    
+    init() {
+        self.address = "123 King St."
+        self.currentTime = getDate()
+        self.isResponded = false
+    }
 }
 
 func getDate()->String{
- let time = Date()
- let timeFormatter = DateFormatter()
- timeFormatter.dateFormat = "HH:mm:ss"
- let stringDate = timeFormatter.string(from: time)
- return stringDate
+    let time = Date()
+    let timeFormatter = DateFormatter()
+    timeFormatter.dateFormat = "HH:mm:ss"
+    let stringDate = timeFormatter.string(from: time)
+    return stringDate
 }
 
 struct listenView_Previews: PreviewProvider {
