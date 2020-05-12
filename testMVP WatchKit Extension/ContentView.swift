@@ -18,7 +18,7 @@ struct ContentView: View {
         //these are initialized to false and zero so no tickets will be seen
         NavigationLink(destination: listenView(listShown: false, listCount: 0)){
             HStack{
-                Image(systemName: "Confirmation")
+                Image(systemName: "shield.fill")
                 Text("Start Protecting")
             }
         }

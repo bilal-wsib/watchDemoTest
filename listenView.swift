@@ -20,7 +20,7 @@ struct listenView: View {
             //if Listening is pressed, head to this screen, passing the parameters of the state of the tickets
             //to be used again  is returning to this screen from listenDecisionView
             NavigationLink(destination: listenDecisionView(total:listCount, oneOrMore:listShown)){
-                Text("Listening").foregroundColor(Color.green)
+                Text("Listening")
             }
             Spacer()
             
@@ -35,10 +35,16 @@ struct listenView: View {
             if(listShown==true){
                 NavigationLink(destination: listView(total: self.listCount)){
                     if(listCount==1){
-                    Text("1 View Ring")
+                        HStack{
+                            Image(systemName: "1.circle")
+                            Text("View Ring")
+                        }
                     }
                     else{
-                        Text("\(listCount) View Rings")
+                        HStack{
+                            Image(systemName: "\(listCount).circle")
+                            Text("View Rings")
+                        }
                     }
 
                 }

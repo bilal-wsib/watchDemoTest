@@ -14,10 +14,16 @@ struct listenDecisionView: View {
     var body: some View {
         VStack{
             NavigationLink(destination: ContentView()){
-                Text("Stop Listening")
+                HStack{
+                    Image(systemName: "wifi.slash")
+                    Text("Stop Listening")
+                }
             }
             NavigationLink(destination: listenView(listShown: oneOrMore, listCount: total)){
-                Text("Keep Listening")
+                HStack{
+                    Image(systemName: "wifi")
+                    Text("Keep Listening")
+                }
             }
         }
     }
