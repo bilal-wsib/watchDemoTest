@@ -9,29 +9,21 @@
 import SwiftUI
 
 struct listView: View {
-    @State var total: Int
+    var ticketList = [watchData]()
+    
     var body: some View {
-        
-        VStack{
-        List(0 ..< total){ item in
-            
-            //NavigationLink(destinationName: responseDecision()){
-                VStack{
-                    Text("10:17 am")
-                    Text("Rosewell and Fairway Street")
-                    Text("Haven't Responded").foregroundColor(Color.red)
-
-                }
-            //}
-        
+        VStack {
+            List(0 ..< ticketList.count) { result in
+                //Text("\(result.address)")
+                Text("Rosewell and Fairway Street")
+                Text("Haven't Responded").foregroundColor(Color.red)
+            }
         }
-        
     }
-}
 }
 
 struct listView_Previews: PreviewProvider {
     static var previews: some View {
-        listView(total: 0)
+        listView(ticketList : [watchData]())
     }
 }

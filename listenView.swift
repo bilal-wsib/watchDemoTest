@@ -14,6 +14,9 @@ struct listenView: View {
     @State var listShown: Bool//the two values input as parameters are stored in static variables
     @State var listCount: Int
     
+    @State var listOfData=[]
+    
+    
     var body: some View {
         //contents placed inside the VStack are placed on top of another
         VStack{
@@ -27,13 +30,17 @@ struct listenView: View {
             Button(action: {
                 self.listShown=true
                 self.listCount=self.listCount+1
+                
+                let watchDataTicket = watchData.init()
+                self.listOfData.append(watchDataTicket)
+                print(self.listOfData)
             }) {
                 Text("Ring If You're Hurt!").bold()
             }
             Spacer()
             
             if(listShown==true){
-                NavigationLink(destination: listView(total: self.listCount)){
+                NavigationLink(destination: listView(ticketList: self.listOfData)){
                     if(listCount==1){
                         HStack{
                             Image(systemName: "1.circle")
@@ -54,19 +61,17 @@ struct listenView: View {
     }
 }
 
-//trying to get the current time in button press
-struct harm: View {
-    
-    var body: some View {
-        Text("\(getDate())")
-        
-    }
+
+struct watchData{
+    var address: String = "123 King St." //getLocation()
+    var currentTime: String = getDate()
+    var isResponded: Bool = false
 }
 
 func getDate()->String{
  let time = Date()
  let timeFormatter = DateFormatter()
- timeFormatter.dateFormat = "HH:ss"
+ timeFormatter.dateFormat = "HH:mm:ss"
  let stringDate = timeFormatter.string(from: time)
  return stringDate
 }
