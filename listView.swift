@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct listView: View {
-    let total: Int
+    @State var total: Int
     var body: some View {
         
         VStack{
         List(0 ..< total){ item in
             
-            //NavigationLink(destinationName: responseDecision() ){
+            //NavigationLink(destinationName: responseDecision()){
                 VStack{
                     Text("10:17 am")
                     Text("Rosewell and Fairway Street")

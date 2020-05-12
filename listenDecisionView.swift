@@ -16,7 +16,7 @@ struct listenDecisionView: View {
             NavigationLink(destination: ContentView()){
                 Text("Stop Listening")
             }
-            NavigationLink(destination: listenView(list: oneOrMore, count: total)){
+            NavigationLink(destination: listenView(listShown: oneOrMore, listCount: total)){
                 Text("Keep Listening")
             }
         }
