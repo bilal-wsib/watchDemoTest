@@ -10,6 +10,8 @@
 
 import SwiftUI
 
+var listOfObjs = [watchData]()
+
 struct listenView: View {
     @State var listShown: Bool//the two values input as parameters are stored in static variables
     @State var listCount: Int
@@ -28,19 +30,17 @@ struct listenView: View {
             Spacer()
             
             Button(action: {
+                getAddress()
                 self.listShown=true
                 self.listCount=self.listCount+1
-                
-                let watchDataTicket = watchData.init()
-                self.listOfData.append(watchDataTicket)
-                print(self.listOfData[0].currentTime)
+
             }) {
                 Text("Ring If You're Hurt!").bold()
             }
             Spacer()
             
             if(listShown==true){
-                NavigationLink(destination: listView(ticketList: self.listOfData)){
+                NavigationLink(destination: listView(ticketList: listOfObjs)){
                     if(listCount==1){
                         HStack{
                             Image(systemName: "1.circle")
@@ -59,6 +59,7 @@ struct listenView: View {
             
         }
     }
+
 }
 
 
@@ -67,9 +68,9 @@ class watchData{
     var currentTime: String //= getDate()
     var isResponded: Bool //= false
     
-    init() {
-        self.address = "123 King St."
-        self.currentTime = getDate()
+    init(address:String, date: String) {
+        self.address = address
+        self.currentTime = date
         self.isResponded = false
     }
 }
@@ -82,8 +83,47 @@ func getDate()->String{
     return stringDate
 }
 
+
+
 struct listenView_Previews: PreviewProvider {
     static var previews: some View {
         listenView(listShown: false, listCount: 0)
     }
+}
+
+func getAddress() {
+    var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+    let lat: Double = 43.4643
+    let lon: Double = -80.5204
+    let ceo: CLGeocoder = CLGeocoder()
+    center.latitude = lat
+    center.longitude = lon
+    var addressString : String = ""
+
+    let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+    //print(loc)
+
+    ceo.reverseGeocodeLocation(loc, completionHandler:
+        {(placemarks, error) in
+            if (error != nil)
+            {
+                print("reverse geodcode fail: \(error!.localizedDescription)")
+            }
+            let pm = placemarks! as [CLPlacemark]
+
+            if pm.count > 0 {
+                let pm = placemarks![0]
+                
+                addressString = pm.subLocality! + ", "
+                addressString += pm.thoroughfare! + ", "
+                addressString += pm.locality! + ", "
+                addressString += pm.postalCode!
+          }
+            
+            test(test: addressString)
+    })
+}
+func test(test: String) {
+    let watchDataTicket = watchData.init(address:test, date: getDate())
+    listOfObjs.append(watchDataTicket)
 }
