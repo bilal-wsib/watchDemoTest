@@ -10,6 +10,8 @@
 
 import SwiftUI
 
+var listOfObjs = [watchData]()
+
 struct listenView: View {
     @State var listShown: Bool//the two values input as parameters are stored in static variables
     @State var listCount: Int
@@ -28,13 +30,9 @@ struct listenView: View {
             Spacer()
             
             Button(action: {
-                let address = getAddress()
-                print("help me")
+                getAddress()
                 self.listShown=true
                 self.listCount=self.listCount+1
-                //print(address)
-                let watchDataTicket = watchData.init()
-                self.listOfData.append(watchDataTicket)
 
             }) {
                 Text("Ring If You're Hurt!").bold()
@@ -42,7 +40,7 @@ struct listenView: View {
             Spacer()
             
             if(listShown==true){
-                NavigationLink(destination: listView(ticketList: self.listOfData)){
+                NavigationLink(destination: listView(ticketList: listOfObjs)){
                     if(listCount==1){
                     Text("1 View Ring")
                     }
@@ -55,6 +53,7 @@ struct listenView: View {
             
         }
     }
+
 }
 
 
@@ -63,9 +62,9 @@ class watchData{
     var currentTime: String //= getDate()
     var isResponded: Bool //= false
     
-    init() {
-        self.address = "hello there"
-        self.currentTime = getDate()
+    init(address:String, date: String) {
+        self.address = address
+        self.currentTime = date
         self.isResponded = false
     }
 }
@@ -86,7 +85,7 @@ struct listenView_Previews: PreviewProvider {
     }
 }
 
-func getAddress()->String {
+func getAddress() {
     var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
     let lat: Double = 43.4643
     let lon: Double = -80.5204
@@ -96,7 +95,7 @@ func getAddress()->String {
     var addressString : String = ""
 
     let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
-    print(loc)
+    //print(loc)
 
     ceo.reverseGeocodeLocation(loc, completionHandler:
         {(placemarks, error) in
@@ -115,11 +114,10 @@ func getAddress()->String {
                 addressString += pm.postalCode!
           }
             
-          print(addressString)
+            test(test: addressString)
     })
-    
-    return addressString
 }
 func test(test: String) {
-    
+    let watchDataTicket = watchData.init(address:test, date: getDate())
+    listOfObjs.append(watchDataTicket)
 }
