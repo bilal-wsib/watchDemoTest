@@ -25,6 +25,10 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Help us help you!</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Help us help you</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

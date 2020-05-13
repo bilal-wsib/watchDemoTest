@@ -28,12 +28,14 @@ struct listenView: View {
             Spacer()
             
             Button(action: {
+                let address = getAddress()
+                print("help me")
                 self.listShown=true
                 self.listCount=self.listCount+1
-                
+                //print(address)
                 let watchDataTicket = watchData.init()
                 self.listOfData.append(watchDataTicket)
-                print(self.listOfData[0].currentTime)
+
             }) {
                 Text("Ring If You're Hurt!").bold()
             }
@@ -62,7 +64,7 @@ class watchData{
     var isResponded: Bool //= false
     
     init() {
-        self.address = "123 King St."
+        self.address = "hello there"
         self.currentTime = getDate()
         self.isResponded = false
     }
@@ -76,8 +78,48 @@ func getDate()->String{
     return stringDate
 }
 
+
+
 struct listenView_Previews: PreviewProvider {
     static var previews: some View {
         listenView(listShown: false, listCount: 0)
     }
+}
+
+func getAddress()->String {
+    var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+    let lat: Double = 43.4643
+    let lon: Double = -80.5204
+    let ceo: CLGeocoder = CLGeocoder()
+    center.latitude = lat
+    center.longitude = lon
+    var addressString : String = ""
+
+    let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+    print(loc)
+
+    ceo.reverseGeocodeLocation(loc, completionHandler:
+        {(placemarks, error) in
+            if (error != nil)
+            {
+                print("reverse geodcode fail: \(error!.localizedDescription)")
+            }
+            let pm = placemarks! as [CLPlacemark]
+
+            if pm.count > 0 {
+                let pm = placemarks![0]
+                
+                addressString = pm.subLocality! + ", "
+                addressString += pm.thoroughfare! + ", "
+                addressString += pm.locality! + ", "
+                addressString += pm.postalCode!
+          }
+            
+          print(addressString)
+    })
+    
+    return addressString
+}
+func test(test: String) {
+    
 }
