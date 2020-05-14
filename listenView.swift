@@ -20,6 +20,7 @@ struct listenView: View {
     
     
     var body: some View {
+        ScrollView{
         //contents placed inside the VStack are placed on top of another
         VStack{
             //if Listening is pressed, head to this screen, passing the parameters of the state of the tickets
@@ -39,6 +40,12 @@ struct listenView: View {
             }
             Spacer()
             
+            if(listShown==false){
+                Text("Manual").bold()
+                Text("If your apple Watch misses a detection").foregroundColor(Color.gray)
+            }
+            
+            
             if(listShown==true){
                 NavigationLink(destination: listView(ticketList: listOfObjs)){
                     if(listCount==1){
@@ -57,6 +64,7 @@ struct listenView: View {
                 }
             }
             
+        }
         }
     }
 

@@ -20,6 +20,9 @@ struct listView: View {
                 }
                 }
             }
+            NavigationLink(destination: listenView(listShown: true, listCount: ticketList.count)){
+                Text("Dismiss")
+            }
         }
     }
 }

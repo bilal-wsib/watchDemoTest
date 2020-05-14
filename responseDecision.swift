@@ -13,13 +13,13 @@ struct responseDecision: View {
     var index = Int()
     @State var lock : Int = 0
     var body: some View {
+        ScrollView{
         
         VStack{
             
                 Button(action: {
                     self.instance[self.index].isResponded=true
                     self.lock=1
-                    print(self.instance[self.index].isResponded)
                 }) {
                     HStack{
                     
@@ -37,7 +37,6 @@ struct responseDecision: View {
             Button(action: {
                 self.instance[self.index].isResponded=true
                 self.lock=2
-                print(self.instance[self.index].isResponded)
             }) {
                 HStack{
                
@@ -53,7 +52,6 @@ struct responseDecision: View {
             Button(action: {
                 self.instance[self.index].isResponded=true
                 self.lock=3
-                print(self.instance[self.index].isResponded)
             }) {
                 HStack{
                
@@ -69,6 +67,7 @@ struct responseDecision: View {
             NavigationLink(destination: listView(ticketList: self.instance)){
                 Image(systemName: "paperplane.fill")
             }
+        }
         }
     }
 }
